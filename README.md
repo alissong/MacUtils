@@ -8,6 +8,7 @@ This script automates the installation and update of various development tools a
 - Homebrew installation and update
 - Node.js and npm installation and update
 - AWS CLI, Terraform, Terragrunt, tfenv, Podman, Kubernetes CLI (kubectl), Helm, Ansible, Python, pip, virtualenv, and pytest installation and update
+- Visual Studio Code installation and update
 
 ## Usage
 
@@ -45,6 +46,7 @@ This script automates the installation and update of various development tools a
 13. **pip**: Checks if pip is installed; if not, installs it. If already installed, updates it.
 14. **virtualenv**: Checks if virtualenv is installed; if not, installs it. If already installed, updates it.
 15. **pytest**: Checks if pytest is installed; if not, installs it. If already installed, updates it.
+16. **Visual Studio Code**: Checks if Visual Studio Code is installed; if not, installs it. If already installed, updates it.
 
 ### Testing Installations
 

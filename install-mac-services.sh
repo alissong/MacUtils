@@ -159,6 +159,19 @@ else
   pip3 install --upgrade pytest
 fi
 
+# Instalação do Visual Studio Code
+if ! command -v code &>/dev/null; then
+  print_message "Instalando o Visual Studio Code..."
+  brew install --cask visual-studio-code
+  if ! command -v code &>/dev/null; then
+    print_message "Erro: Visual Studio Code não foi instalado corretamente."
+    exit 1
+  fi
+else
+  print_message "Visual Studio Code já está instalado. Atualizando..."
+  brew upgrade --cask visual-studio-code
+fi
+
 # Testa as instalações
 print_message "Testando as instalações:"
 print_message "Versão do Homebrew: $(brew --version | head -n 1)"
@@ -176,5 +189,6 @@ print_message "Versão do Python: $(python3 --version)"
 print_message "Versão do pip: $(pip3 --version)"
 print_message "Versão do virtualenv: $(virtualenv --version)"
 print_message "Versão do pytest: $(pytest --version)"
+print_message "Versão do Visual Studio Code: $(code --version | head -n 1)"
 
 print_message "Instalação concluída com sucesso!"
