@@ -88,15 +88,6 @@ else
   brew upgrade awscli
 fi
 
-# Instalação do Podman
-if ! command -v podman &>/dev/null; then
-  print_message "Instalando o Podman..."
-  brew install podman
-else
-  print_message "Podman já está instalado. Atualizando..."
-  brew upgrade podman
-fi
-
 # Instalação do Kubernetes CLI (kubectl)
 if ! command -v kubectl &>/dev/null; then
   print_message "Instalando o Kubernetes CLI (kubectl)..."
@@ -159,17 +150,54 @@ else
   pip3 install --upgrade pytest
 fi
 
-# Instalação do Visual Studio Code
-if ! command -v code &>/dev/null; then
-  print_message "Instalando o Visual Studio Code..."
-  brew install --cask visual-studio-code
-  if ! command -v code &>/dev/null; then
-    print_message "Erro: Visual Studio Code não foi instalado corretamente."
-    exit 1
+# Escolha entre Colima ou Podman
+print_message "Deseja instalar Colima ou Podman? (Digite 'colima' ou 'podman')"
+read choice
+
+if [ "$choice" == "colima" ]; then
+  # Verifica e instala Docker se necessário
+  if ! command -v docker &>/dev/null; then
+    print_message "Docker não encontrado. Instalando Docker..."
+    brew install docker
   fi
+
+  # Instalação do Colima
+  if ! command -v colima &>/dev/null; then
+    print_message "Instalando o Colima..."
+    brew install colima
+  else
+    print_message "Colima já está instalado. Atualizando..."
+    brew upgrade colima
+  fi
+
+  # Desinstalação do Podman se estiver instalado
+  if command -v podman &>/dev/null; then
+    print_message "Desinstalando o Podman para evitar conflitos com Colima..."
+    brew uninstall podman
+  fi
+
+  # Configuração do Colima
+  print_message "Configurando o Colima..."
+  colima start
+
+elif [ "$choice" == "podman" ]; then
+  # Instalação do Podman
+  if ! command -v podman &>/dev/null; then
+    print_message "Instalando o Podman..."
+    brew install podman
+  else
+    print_message "Podman já está instalado. Atualizando..."
+    brew upgrade podman
+  fi
+
+  # Desinstalação do Colima se estiver instalado
+  if command -v colima &>/dev/null; then
+    print_message "Desinstalando o Colima para evitar conflitos com Podman..."
+    brew uninstall colima
+  fi
+
 else
-  print_message "Visual Studio Code já está instalado. Atualizando..."
-  brew upgrade --cask visual-studio-code
+  print_message "Escolha inválida. Nenhum contêiner será instalado."
 fi
 
 # Testa as instalações
@@ -181,7 +209,6 @@ print_message "Versão do Terraform: $(terraform -version | head -n 1)"
 print_message "Versão do Terragrunt: $(terragrunt -version | head -n 1)"
 print_message "Versão do tfenv: $(tfenv --version)"
 print_message "Versão do AWS CLI: $(aws --version)"
-print_message "Versão do Podman: $(podman --version | head -n 1)"
 print_message "Versão do kubectl: $(kubectl version --client --short)"
 print_message "Versão do Helm: $(helm version --short)"
 print_message "Versão do Ansible: $(ansible --version | head -n 1)"
@@ -189,6 +216,10 @@ print_message "Versão do Python: $(python3 --version)"
 print_message "Versão do pip: $(pip3 --version)"
 print_message "Versão do virtualenv: $(virtualenv --version)"
 print_message "Versão do pytest: $(pytest --version)"
-print_message "Versão do Visual Studio Code: $(code --version | head -n 1)"
+if [ "$choice" == "colima" ]; then
+  print_message "Versão do Colima: $(colima version)"
+elif [ "$choice" == "podman" ]; then
+  print_message "Versão do Podman: $(podman --version | head -n 1)"
+fi
 
 print_message "Instalação concluída com sucesso!"
