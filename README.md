@@ -7,8 +7,8 @@ This script automates the installation and update of various development tools a
 - System update
 - Homebrew installation and update
 - Node.js and npm installation and update
-- AWS CLI, Terraform, Terragrunt, tfenv, Podman, Kubernetes CLI (kubectl), Helm, Ansible, Python, pip, virtualenv, and pytest installation and update
-- Visual Studio Code installation and update
+- AWS CLI, Terraform, Terragrunt, tfenv, Kubernetes CLI (kubectl), Helm, Ansible, Python, pip, virtualenv, and pytest installation and update
+- Choice to install either Colima or Podman
 
 ## Usage
 
@@ -38,15 +38,14 @@ This script automates the installation and update of various development tools a
 5. **Terraform**: Checks if Terraform is installed; if not, installs it. If already installed, updates it.
 6. **Terragrunt**: Checks if Terragrunt is installed; if not, installs it. If already installed, updates it.
 7. **tfenv**: Checks if tfenv is installed; if not, installs it. If already installed, updates it.
-8. **Podman**: Checks if Podman is installed; if not, installs it. If already installed, updates it.
-9. **Kubernetes CLI (kubectl)**: Checks if kubectl is installed; if not, installs it. If already installed, updates it.
-10. **Helm**: Checks if Helm is installed; if not, installs it. If already installed, updates it.
-11. **Ansible**: Checks if Ansible is installed; if not, installs it. If already installed, updates it.
-12. **Python**: Checks if Python is installed; if not, installs it. If already installed, updates it.
-13. **pip**: Checks if pip is installed; if not, installs it. If already installed, updates it.
-14. **virtualenv**: Checks if virtualenv is installed; if not, installs it. If already installed, updates it.
-15. **pytest**: Checks if pytest is installed; if not, installs it. If already installed, updates it.
-16. **Visual Studio Code**: Checks if Visual Studio Code is installed; if not, installs it. If already installed, updates it.
+8. **Kubernetes CLI (kubectl)**: Checks if kubectl is installed; if not, installs it. If already installed, updates it.
+9. **Helm**: Checks if Helm is installed; if not, installs it. If already installed, updates it.
+10. **Ansible**: Checks if Ansible is installed; if not, installs it. If already installed, updates it.
+11. **Python**: Checks if Python is installed; if not, installs it. If already installed, updates it.
+12. **pip**: Checks if pip is installed; if not, installs it. If already installed, updates it.
+13. **virtualenv**: Checks if virtualenv is installed; if not, installs it. If already installed, updates it.
+14. **pytest**: Checks if pytest is installed; if not, installs it. If already installed, updates it.
+15. **Colima or Podman**: Prompts the user to choose between Colima or Podman. Installs and configures the chosen tool, and uninstalls the other if it is installed.
 
 ### Testing Installations
 
